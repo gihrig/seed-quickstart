@@ -18,6 +18,9 @@ wasm-bindgen-test = "0.3.12"
 [dependencies]
 seed = { git = "https://github.com/seed-rs/seed" } # `master` is always compilable, formatted and linted
 wasm-bindgen = "0.2.63"
+savory-core = "0.5.1"
+savory-html = "0.5.1"
+savory-elements = "0.5.1"
 
 [profile.release]
 lto = true  # https://doc.rust-lang.org/nightly/cargo/reference/profiles.html#lto
