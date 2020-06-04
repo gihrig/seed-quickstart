@@ -1,4 +1,8 @@
-use seed::{prelude::*, *};
+// use seed::{prelude::*, *};
+use savory_core::prelude::*;
+use savory_elements::prelude::*;
+use savory_html::{css::unit::px, css::Color, html::raw, prelude::*};
+use wasm_bindgen::prelude::*;
 
 // ------ ------
 //     Init
@@ -54,7 +58,7 @@ fn update(msg: Msg, model: &mut Model, _: &mut impl Orders<Msg>) {
 fn view(model: &Model) -> Vec<Node<Msg>> {
     // Parse HTML string into virtual nodes.
     // It's basically vector of trees because element nodes may contain children.
-    let mut nodes: Vec<Node<Msg>> = raw!(&model.html);
+    let mut nodes: Vec<Node<Msg>> = raw(&model.html);
     // See trees.
     log!(nodes);
 
@@ -90,16 +94,16 @@ fn update_virtual_dom_node(id: &str, nodes: &mut [Node<Msg>], updater: &dyn Fn(&
     for node in nodes {
         let el = match node {
             Node::Element(el) => el,
-            _ => continue
+            _ => continue,
         };
         match el.attrs.vals.get(&At::Id) {
             // (Pattern with a guard.)
             Some(AtValue::Some(el_id)) if el_id == id => {
                 updater(node);
-                break
-            },
+                break;
+            }
             // Do nothing (it will be unnecessary once guards are implemented also for `if let ..`)
-            _ => ()
+            _ => (),
         }
         // Traverse through descendants.
         // (Note: Rust can't do tail-call elimination (yet), so it's relatively easy to overflow stack).
